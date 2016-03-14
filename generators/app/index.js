@@ -2,13 +2,14 @@
 var yeoman = require('yeoman-generator')
 var chalk = require('chalk')
 var yosay = require('yosay')
+var path = require('path')
 var _ = require('lodash')
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
     this.argument('name', { type: String, required: false })
     this.appName = this.name || path.basename(process.cwd()) || 'esnext-library'
-    this.capitalAppName = _.capatalize(this.appName)
+    this.capitalAppName = _.capitalize(_.camelCase(this.appName))
     this.appPath = this.env.options.appPath
     this.version = '0.0.1'
   },
@@ -38,6 +39,7 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.answers = props
+      this.githubUser = this.answers.githubUser
       done()
     }.bind(this))
   },
@@ -55,10 +57,20 @@ module.exports = yeoman.generators.Base.extend({
       { src: 'webpack-base.config.js' },
       { src: 'webpack-development.config.js' },
       { src: 'webpack-production.config.js' },
-      { src: 'bin/**', dest: 'bin ' },
-      { src: 'test/**', dest: 'test ' }
+      { src: 'src/_index.js', dest: 'src/index.js' },
+      { src: 'bin/**', dest: 'bin' },
+      { src: 'test/setup.js', dest: 'test/setup.js' },
+      { src: 'test/unit/_index.spec.js', dest: 'test/unit/index.spec.js' }
     ]
-    if (this.answers && this.answers.includeDocs) filesList.push({ src: 'gitbook/**', dest: 'gitbook' })
+    console.log('this.answers', this.answers)
+    if (this.answers && this.answers.includeDocs) {
+      filesList.concat([
+        { src: 'gitbook/_book.json', dest: 'book.json' },
+        { src: 'gitbook/contents.md', dest: 'docs/README.md' },
+        { src: 'gitbook/contents.md', dest: 'docs/api/README.md' }
+      ])
+    }
+    // Make folder before copying to avoid error
     this.copyFiles(filesList)
   },
 
@@ -71,7 +83,7 @@ module.exports = yeoman.generators.Base.extend({
   copyFiles: function (filesArray) {
     console.log('files array:', filesArray)
     if (!filesArray) return
-    filesArray.forEach(function (file) {
+    filesArray.forEach(file => {
       var src = ''
       var destination = ''
       if (!file.src) {
@@ -86,7 +98,7 @@ module.exports = yeoman.generators.Base.extend({
         src = file.src
         destination = file.dest || file.src // Make destination source if not provided
       }
-      if (src.charAt(0) === '_') { // template if filename starts with _
+      if (src.charAt(0) === '_' || src.indexOf('_') !== -1) { // template if filename starts with _
         // Copy with templating
         this.template(src, destination, this.templateContext)
       } else {
