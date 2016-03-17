@@ -62,7 +62,8 @@ module.exports = yeoman.generators.Base.extend({
       { src: 'test/setup.js', dest: 'test/setup.js' },
       { src: 'test/unit/_index.spec.js', dest: 'test/unit/index.spec.js' }
     ]
-    console.log('this.answers', this.answers)
+    // console.log('this.answers', this.answers)
+    // TODO: Make this work
     if (this.answers && this.answers.includeDocs) {
       filesList.concat([
         { src: 'gitbook/_book.json', dest: 'book.json' },
@@ -81,18 +82,13 @@ module.exports = yeoman.generators.Base.extend({
    * @param {Array|Object} filesArray
    */
   copyFiles: function (filesArray) {
-    console.log('files array:', filesArray)
     if (!filesArray) return
     filesArray.forEach(file => {
       var src = ''
       var destination = ''
       if (!file.src) {
-        if (_.isString(file)) {
-          src = file
-        } else {
-          console.error('Invalid source for file copying.')
-          throw new Error('Invalid source for file copy.')
-        }
+        if (!_.isString(file)) throw new Error('Invalid source for file copy.')
+        src = file
       }
       if (_.isObject(file)) {
         src = file.src
@@ -102,12 +98,12 @@ module.exports = yeoman.generators.Base.extend({
         // Copy with templating
         this.template(src, destination, this.templateContext)
       } else {
-        //Normal copy
+        // Normal copy
         this.fs.copy(
           this.templatePath(src),
           this.destinationPath(destination)
         )
       }
     })
-  },
+  }
 })

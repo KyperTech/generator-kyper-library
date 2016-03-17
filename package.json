@@ -1,8 +1,8 @@
 {
   "name": "generator-kyper-library",
-  "version": "0.0.1",
-  "description": "Starting place for ESNext library",
-  "homepage": "",
+  "version": "0.0.2",
+  "description": "Starting place for ESNext library. Uses webpack run through npm scripts to build.",
+  "homepage": "https://github.com/KyperTech/generator-kyper-library",
   "author": {
     "name": "Scott Prue",
     "email": "sprue.dev@gmail.com",
