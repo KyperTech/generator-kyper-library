@@ -50,7 +50,7 @@ module.exports = yeoman.generators.Base.extend({
       { src: '_README.md', dest: 'README.md' },
       { src: 'babelrc', dest: '.babelrc' },
       { src: 'codeclimate.yml', dest: '.codeclimate.yml' },
-      { src: 'config.json' },
+      { src: '_config.json', dest: 'config.json' },
       { src: 'gitignore', dest: '.gitignore' },
       { src: 'npmignore', dest: '.npmignore' },
       { src: 'travis.yml', dest: '.travis.yml' },
