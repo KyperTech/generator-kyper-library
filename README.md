@@ -4,7 +4,7 @@
 [![license][license-image]][license-url]
 [![code-style][code-style-image]][code-style-url]
 
-> Starting place for ESNext libraries
+> Starting place for ESNext libraries using Webpack
 
 ## Installation
 
@@ -21,9 +21,33 @@ Then generate your new project:
 yo kyper-library
 ```
 
-## Getting To Know Yeoman
 
-Yeoman has a heart of gold. He&#39;s a person with feelings and opinions, but he&#39;s very easy to work with. If you think he&#39;s too opinionated, he can be easily convinced. Feel free to [learn more about him](http://yeoman.io/).
+### Tests
+
+`npm run test` - run tests
+`npm run test:cov` - run tests and generate coverage
+
+
+### Travis
+Visit [travis](travis-ci.org) to enable your gihub repo. Builds settings can be changed in `.travis.yml`
+
+### Deployment
+
+#### AWS S3
+
+Selecting AWS S3 from the deploy options when running the generator adds deploy configs in `.travis.yml`.
+
+1. Get your AWS Key and Secret from the AWS Console Credentials page
+2. Set the following environment vars within the Travis-CI repo settings page:
+  * `AWS_KEY` - Your AWS key
+  * `AWS_SECRET` - Your AWS secret
+  * `S3_BUCKET` - Your S3 Bucket
+
+### Code Climate
+
+Visit [code climate dashboard](https://codeclimate.com/dashboard) to enable codeclimate for your repo on Github. Coverage will be sent automatically by Travis.
+
+Get the key from the settings->coverage page and place it in Travis environment variable as `CODE_CLIMATE`
 
 ## License
 

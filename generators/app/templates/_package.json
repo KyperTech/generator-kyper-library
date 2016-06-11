@@ -9,7 +9,7 @@
     "lib"
   ],
   "scripts": {
-    "clean": "rimraf lib dist coverage",
+    "clean": "rimraf lib coverage",
     "lint": "standard ./src/**",
     "test": "mocha -R spec --compilers js:babel-core/register ./test/setup.js ./test/**/*.spec.js",
     "test:cov": "babel-node $(npm bin)/isparta cover --report lcov ./node_modules/mocha/bin/_mocha -- ./test --recursive",
@@ -22,11 +22,13 @@
     "watch": "npm run watch:umd",
     "prepublish": "npm run clean && npm run test && npm run build",
     "upload": "node ./bin/upload",
+    <% if (answers.includeDocs) { %>
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build -g <%= githubUser %>/<%= appName %>",
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:<%= githubUser %>/<%= appName %> gh-pages --force"
+    <% } %>
   },
   "repository": {
     "type": "git",
@@ -64,7 +66,6 @@
     "json-loader": "^0.5.4",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.1",
-    "s3-cli": "^0.13.0",
     "standard": "^6.0.8",
     "webpack": "^1.12.14"
   }

@@ -1,6 +1,6 @@
 {
   "name": "generator-kyper-library",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Starting place for ESNext library. Uses webpack run through npm scripts to build.",
   "homepage": "https://github.com/KyperTech/generator-kyper-library",
   "author": {
@@ -17,13 +17,14 @@
     "babel",
     "library",
     "esnext",
+    "webpack"
     "yeoman-generator"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
-    "lodash": "^4.6.1",
-    "yeoman-generator": "^0.21.1",
-    "yosay": "^1.0.2"
+    "chalk": "^1.1.3",
+    "lodash": "^4.13.1",
+    "yeoman-generator": "^0.23.3",
+    "yosay": "^1.1.1"
   },
   "devDependencies": {
     "yeoman-assert": "^2.0.0",
