@@ -27,17 +27,15 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "yeoman-assert": "^2.0.0",
-    "eslint": "^2.1.0",
-    "eslint-config-xo-space": "^0.10.0",
-    "gulp": "^3.9.0",
-    "gulp-eslint": "^2.0.0",
-    "gulp-exclude-gitignore": "^1.0.0",
-    "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-istanbul": "^0.10.3",
-    "gulp-mocha": "^2.0.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-nsp": "^2.1.0"
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "fs-extra": "^0.30.0",
+    "isparta": "^4.0.0",
+    "mocha": "^2.5.3",
+    "standard": "^7.1.2",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.4.0"
   },
   "eslintConfig": {
     "extends": "xo-space",
@@ -47,8 +45,10 @@
   },
   "repository": "prescottprue/generator-kyper-library",
   "scripts": {
-    "prepublish": "gulp prepublish",
-    "test": "gulp"
+    "prepublish": "npm run lint && npm run test",
+    "lint": "standard generators",
+    "test": "mocha -R spec --compilers js:babel-core/register ./test/setup.js ./test/**/*.spec.js",
+    "test:cov": "babel-node $(npm bin)/isparta cover --report lcov ./node_modules/mocha/bin/_mocha -- ./test/** --recursive"
   },
   "license": "MIT"
 }
