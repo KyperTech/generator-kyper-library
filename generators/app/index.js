@@ -5,7 +5,7 @@ const yosay = require('yosay')
 const path = require('path')
 const _ = require('lodash')
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
   initializing: function () {
     this.argument('name', { type: String, required: false })
     this.appName = this.name || path.basename(process.cwd()) || 'esnext-library'

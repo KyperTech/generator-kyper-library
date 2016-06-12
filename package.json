@@ -1,6 +1,6 @@
 {
   "name": "generator-kyper-library",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Starting place for ESNext library. Uses webpack run through npm scripts to build.",
   "homepage": "https://github.com/KyperTech/generator-kyper-library",
   "author": {
@@ -36,12 +36,6 @@
     "standard": "^7.1.2",
     "yeoman-assert": "^2.2.1",
     "yeoman-test": "^1.4.0"
-  },
-  "eslintConfig": {
-    "extends": "xo-space",
-    "env": {
-      "mocha": true
-    }
   },
   "repository": "prescottprue/generator-kyper-library",
   "scripts": {

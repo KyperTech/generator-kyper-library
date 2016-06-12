@@ -10,7 +10,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.BannerPlugin('<%= appName %>.js v' + pkg.version + ' | (c) <%= githubUser %>', {raw: false, entryOnly: true})
+    new webpack.BannerPlugin('<%= appName %>.js v' + pkg.version + ' | (c) <%= githubUser %>',
+      {
+        raw: false, entryOnly: true
+      })
   ],
   output: {
     library: '<%= capitalAppName %>',
