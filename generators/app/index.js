@@ -37,12 +37,6 @@ module.exports = yeoman.Base.extend({
         name: 'codeClimate',
         message: 'Would to include config for CodeClimate?',
         default: true
-      },
-      {
-        type: 'confirm',
-        name: 'includeDocs',
-        message: 'Would you like to include documentation through Gitbook?',
-        default: false
       }
     ]
 
@@ -68,25 +62,16 @@ module.exports = yeoman.Base.extend({
       { src: 'test/setup.js', dest: 'test/setup.js' },
       { src: 'test/unit/**', dest: 'test/unit' }
     ]
-    if (this.answers.includeDocs) {
-      filesList.concat([
-        { src: 'gitbook/_book.json', dest: 'book.json' },
-        { src: 'gitbook/contents.md', dest: 'docs/README.md' },
-        { src: 'gitbook/contents.md', dest: 'docs/api/README.md' }
-      ])
-    }
 
     if (this.answers.includeTravis) {
-      filesList.concat([
+      filesList.push(
         { src: 'travis.yml', dest: '.travis.yml' },
         { src: 'istanbul.yml', dest: '.istanbul.yml' }
-      ])
+      )
     }
 
     if (this.answers.includeCodeclimate) {
-      filesList.concat([
-        { src: 'codeclimate.yml', dest: '.codeclimate.yml' }
-      ])
+      filesList.push({ src: 'codeclimate.yml', dest: '.codeclimate.yml' })
     }
     // Make folder before copying to avoid error
     this.copyFiles(filesList)
