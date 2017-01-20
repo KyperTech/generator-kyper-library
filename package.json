@@ -1,48 +1,68 @@
 {
   "name": "generator-kyper-library",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Starting place for ESNext library. Uses webpack run through npm scripts to build.",
+  "main": "generators/index.js",
+  "files": [
+    "generators"
+  ],
+  "scripts": {
+    "prepublish": "npm run lint && npm run test",
+    "lint": "eslint test/**",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha -R spec --compilers js:babel-core/register ./test/setup.js ./test/**/*.spec.js",
+    "test:cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- ./test/** --recursive --report lcov --compilers js:babel-register --require babel-polyfill",
+    "codecov": "cat coverage/*/lcov.info | codecov"
+  },
   "homepage": "https://github.com/KyperTech/generator-kyper-library",
+  "repository": "prescottprue/generator-kyper-library",
+  "license": "MIT",
   "author": {
     "name": "Scott Prue",
     "email": "sprue.dev@gmail.com",
     "url": "prescottprue.com"
   },
-  "files": [
-    "generators"
-  ],
-  "main": "generators/index.js",
   "keywords": [
     "es6",
     "babel",
     "library",
     "esnext",
     "webpack",
-    "yeoman-generator"
+    "yeoman-generator",
+    "webpack-library"
   ],
   "dependencies": {
     "chalk": "^1.1.3",
-    "lodash": "^4.13.1",
-    "yeoman-generator": "^0.23.3",
-    "yosay": "^1.1.1"
+    "lodash": "^4.17.4",
+    "yeoman-generator": "^1.0.1",
+    "yosay": "^1.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.9.0",
-    "babel-core": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
-    "fs-extra": "^0.30.0",
-    "isparta": "^4.0.0",
-    "mocha": "^2.5.3",
-    "standard": "^7.1.2",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-es6-promise": "^1.0.0",
+    "babel-plugin-lodash": "^3.2.9",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "codecov": "^1.0.1",
+    "docdown": "^0.7.2",
+    "documentation": "^4.0.0-beta15",
+    "documentation-markdown-api-theme": "^1.0.2",
+    "eslint": "^3.10.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-config-standard-react": "^4.2.0",
+    "eslint-plugin-babel": "^4.0.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "gitbook-cli": "^2.3.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^3.1.2",
+    "rimraf": "^2.5.4",
     "yeoman-assert": "^2.2.1",
     "yeoman-test": "^1.4.0"
-  },
-  "repository": "prescottprue/generator-kyper-library",
-  "scripts": {
-    "prepublish": "npm run lint && npm run test",
-    "lint": "standard generators",
-    "test": "mocha -R spec --compilers js:babel-core/register ./test/setup.js ./test/**/*.spec.js",
-    "test:cov": "babel-node $(npm bin)/isparta cover --report lcov ./node_modules/mocha/bin/_mocha -- ./test/** --recursive"
-  },
-  "license": "MIT"
+  }
 }
