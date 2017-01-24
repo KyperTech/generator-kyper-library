@@ -18,10 +18,10 @@ const testFiles = [
   'test/unit'
 ]
 
-describe('generator-react-firebase:app', () => {
+describe.skip('generator-react-firebase:app', () => {
   before(() =>
     helpers.run(path.join(__dirname, '../../generators/app'))
-      .withPrompts({someAnswer: true})
+      .withPrompts({includeTravis: true, githubUser: 'someuser', codeClimate: true})
       .toPromise()
   )
   describe('project', () => checkForEachFile(projectFiles))
