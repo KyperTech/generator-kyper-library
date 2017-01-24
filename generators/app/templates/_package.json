@@ -1,22 +1,26 @@
 {
   "name": "<%= appName %>",
   "version": "<%= version %>",
+  "browser": "dist/<%= appName %>.js",
   "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "files": [
     "src",
     "dist",
-    "lib"
+    "lib",
+    "es"
   ],
   "scripts": {
     "clean": "rimraf lib coverage",
-    "lint": "eslint src/** test/**",
+    "lint": "eslint src test",
     "lint:fix": "npm run lint -- --fix",
     "test": "mocha -R spec --compilers js:babel-core/register ./test/setup.js ./test/**/*.spec.js",
     "test:cov": "babel-node $(npm bin)/isparta cover --report lcov ./node_modules/mocha/bin/_mocha -- ./test --recursive",
-    "build:lib": "babel src --out-dir lib",
-    "build:umd": "webpack src/index.js dist/<%= appName %>.js --config webpack-development.config.js",
-    "build:umd:min": "webpack -p src/index.js dist/<%= appName %>.min.js --config webpack-production.config.js",
+    "build:lib": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js dist/<%= appName %>.js",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack -p src/index.js dist/<%= appName %>.min.js",
     "build": "npm run clean && npm run build:lib && npm run build:umd && npm run build:umd:min",
     "watch:umd": "npm run build:umd -- --stats --progress --colors --watch",
     "watch:lib": "npm run build:lib -- --stats --progress --colors --watch",
@@ -49,10 +53,6 @@
     }
   ],
   "npmName": "<%= appName %>",
-  "files": [
-    "dist",
-    "src"
-  ],
   "npmFileMap": [
     {
       "basePath": "/dist/",
@@ -69,25 +69,27 @@
   "dependencies": {
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.2",
-    "babel-eslint": "^7.1.0",
-    "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.18.0",
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "cross-env": "^3.1.4",
     "chai": "^3.5.0",
     "codecov": "^1.0.1",<% if (answers.includeDocs) { %>
     "docdown": "^0.7.2",
     "documentation": "^4.0.0-beta15",
     "documentation-markdown-api-theme": "^1.0.2",
     "gitbook-cli": "^2.3.0",<% } %>
-    "eslint": "^3.10.2",
+    "eslint": "^3.14.0",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-standard": "^2.0.1",
     "istanbul": "^1.1.0-alpha.1",
     "json-loader": "^0.5.4",
-    "mocha": "^3.1.2",
+    "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
     "webpack": "^1.13.2"
   }
