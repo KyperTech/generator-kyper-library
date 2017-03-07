@@ -1,10 +1,37 @@
 language: node_js
 
 node_js:
-  - v6
-  - v5
-  - v4
+  - 6
 
 sudo: false
 
-script: "npm run test"
+cache:
+  directories:
+    - node_modules
+
+# Only build pushes to master and release branches (prevent duplicate builds)
+branches:
+  only:
+    - master
+    - release
+
+script:
+  - npm run test
+
+addons:
+  code_climate:
+    repo_token: $CODE_CLIMATE
+
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/lcov.info
+  - npm run codecov
+
+# Publish To NPM if push to release branch
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: $NPM_EMAIL
+  api_key: $NPM_TOKEN
+  on:
+    branch: release

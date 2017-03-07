@@ -1,6 +1,6 @@
 {
   "name": "generator-kyper-library",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Starting place for ESNext library. Uses webpack run through npm scripts to build.",
   "main": "generators/index.js",
   "files": [
