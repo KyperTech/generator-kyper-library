@@ -38,6 +38,12 @@ module.exports = class extends Generator {
         name: 'codeClimate',
         message: 'Would to include config for CodeClimate?',
         default: true
+      },
+      {
+        type: 'confirm',
+        name: 'includeDocs',
+        message: 'Include Docs Generation through Gitbook?',
+        default: true
       }
     ]
 
@@ -53,14 +59,12 @@ module.exports = class extends Generator {
       { src: '_package.json', dest: 'package.json' },
       { src: '_README.md', dest: 'README.md' },
       { src: 'babelrc', dest: '.babelrc' },
-      { src: '_config.json', dest: 'config.json' },
       { src: 'gitignore', dest: '.gitignore' },
       { src: 'npmignore', dest: '.npmignore' },
       { src: 'webpack.config.js' },
       { src: 'src/_index.js', dest: 'src/index.js' },
-      { src: 'bin/**', dest: 'bin' },
-      { src: 'test/setup.js', dest: 'test/setup.js' },
-      { src: 'test/unit/**', dest: 'test/unit' }
+      { src: 'tests/setup.js', dest: 'tests/setup.js' },
+      { src: 'tests/unit/**', dest: 'tests/unit' }
     ]
 
     if (this.answers.includeTravis) {
