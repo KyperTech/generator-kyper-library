@@ -58,6 +58,8 @@ module.exports = class extends Generator {
     let filesList = [
       { src: '_package.json', dest: 'package.json' },
       { src: '_README.md', dest: 'README.md' },
+      { src: '_CONTRIBUTING.md', dest: 'CONTRIBUTING.md' },
+      { src: 'LICENSE', dest: 'LICENSE' },
       { src: 'babelrc', dest: '.babelrc' },
       { src: 'gitignore', dest: '.gitignore' },
       { src: 'npmignore', dest: '.npmignore' },
@@ -77,7 +79,12 @@ module.exports = class extends Generator {
     if (this.answers.includeCodeclimate) {
       filesList.push({ src: 'codeclimate.yml', dest: '.codeclimate.yml' })
     }
+
+    if (this.answers.includeCodecov) {
+      filesList.push({ src: 'codecov.yml', dest: '.codecov.yml' })
+    }
     // Make folder before copying to avoid error
+
     filesList.forEach(file =>
       this.fs.copyTpl(
         this.templatePath(file.src || file),
