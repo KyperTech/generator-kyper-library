@@ -10,7 +10,8 @@ branches:
 
 sudo: false
 
-cache:
+cache:<% if (answers.useYarn) { %>
+  yarn: true<% } %>
   directories:
     - node_modules
 
