@@ -1,4 +1,4 @@
-export default class <%= capitalAppName %> {
+export default class Somelibrary {
   /** Constructor
    */
   // constructor () {

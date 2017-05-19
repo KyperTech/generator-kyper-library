@@ -10,8 +10,8 @@ branches:
 
 sudo: false
 
-cache:<% if (answers.useYarn) { %>
-  yarn: true<% } %>
+cache:
+  yarn: true
   directories:
     - node_modules
 
@@ -30,7 +30,7 @@ deploy:
   api_key: $NPM_TOKEN
   on:
     branch: release
-<% if (answers.codeClimate) { %>
+
 addons:
   code_climate:
     repo_token: $CODE_CLIMATE
@@ -38,4 +38,4 @@ addons:
 after_success:
   - npm install -g codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
-<% } %>
+

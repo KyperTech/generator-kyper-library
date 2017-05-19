@@ -4,6 +4,7 @@ const chalk = require('chalk')
 const yosay = require('yosay')
 const path = require('path')
 const _ = require('lodash')
+const commandExists = require('command-exists')
 
 module.exports = class extends Generator {
   initializing () {
@@ -44,6 +45,12 @@ module.exports = class extends Generator {
         name: 'includeDocs',
         message: 'Include Docs Generation through Gitbook?',
         default: true
+      },
+      {
+        type: 'confirm',
+        name: 'useYarn',
+        message: 'Use Yarn?',
+        default: true
       }
     ]
 
@@ -58,10 +65,13 @@ module.exports = class extends Generator {
     let filesList = [
       { src: '_package.json', dest: 'package.json' },
       { src: '_README.md', dest: 'README.md' },
+      { src: 'CONTRIBUTING.md', dest: 'CONTRIBUTING.md' },
+      { src: 'LICENSE', dest: 'LICENSE' },
       { src: 'babelrc', dest: '.babelrc' },
+      { src: 'eslintrc', dest: '.eslintrc' },
       { src: 'gitignore', dest: '.gitignore' },
       { src: 'npmignore', dest: '.npmignore' },
-      { src: 'webpack.config.js' },
+      { src: '_webpack.config.js', dest: 'webpack.config.js' },
       { src: 'src/_index.js', dest: 'src/index.js' },
       { src: 'tests/setup.js', dest: 'tests/setup.js' },
       { src: 'tests/unit/**', dest: 'tests/unit' }
@@ -77,7 +87,12 @@ module.exports = class extends Generator {
     if (this.answers.includeCodeclimate) {
       filesList.push({ src: 'codeclimate.yml', dest: '.codeclimate.yml' })
     }
+
+    if (this.answers.includeCodecov) {
+      filesList.push({ src: 'codecov.yml', dest: '.codecov.yml' })
+    }
     // Make folder before copying to avoid error
+
     filesList.forEach(file =>
       this.fs.copyTpl(
         this.templatePath(file.src || file),
@@ -88,7 +103,18 @@ module.exports = class extends Generator {
   }
 
   install () {
-    this.npmInstall()
+    return commandExists('yarn')
+      .then(() => {
+        if (!this.answers.useYarn) {
+          console.log(chalk.yellow('Opted out of yarn even though it is available')) // eslint-disable-line no-console
+          return this.npmInstall()
+        }
+        console.log(chalk.blue('Using Yarn!')) // eslint-disable-line no-console
+        return this.yarnInstall()
+      })
+      .catch(() => {
+        this.npmInstall()
+      })
   }
 
 }
