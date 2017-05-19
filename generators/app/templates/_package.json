@@ -13,9 +13,9 @@
   ],
   "scripts": {
     "clean": "rimraf lib coverage",
-    "lint": "eslint src test",
+    "lint": "eslint src tests",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha -R spec --compilers js:babel-core/register ./tests/setup.js ./test/**/*.spec.js",
+    "test": "mocha -R spec --compilers js:babel-core/register ./tests/setup.js ./tests/**/*.spec.js",
     "test:cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- ./tests/** --recursive --report lcov --compilers js:babel-register --require babel-polyfill",
     "build:lib": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
@@ -64,9 +64,9 @@
   "dependencies": {
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-core": "^6.22.1",
-    "babel-eslint": "^7.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -84,9 +84,8 @@
     "eslint-plugin-standard": "^2.0.1",
     "husky": "^0.13.2",
     "istanbul": "^1.1.0-alpha.1",
-    "json-loader": "^0.5.4",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
-    "webpack": "^1.14.0"
+    "webpack": "^2.5.1"
   }
 }

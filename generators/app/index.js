@@ -58,12 +58,12 @@ module.exports = class extends Generator {
     let filesList = [
       { src: '_package.json', dest: 'package.json' },
       { src: '_README.md', dest: 'README.md' },
-      { src: '_CONTRIBUTING.md', dest: 'CONTRIBUTING.md' },
+      { src: 'CONTRIBUTING.md', dest: 'CONTRIBUTING.md' },
       { src: 'LICENSE', dest: 'LICENSE' },
       { src: 'babelrc', dest: '.babelrc' },
       { src: 'gitignore', dest: '.gitignore' },
       { src: 'npmignore', dest: '.npmignore' },
-      { src: 'webpack.config.js' },
+      { src: '_webpack.config.js', dest: 'webpack.config.js' },
       { src: 'src/_index.js', dest: 'src/index.js' },
       { src: 'tests/setup.js', dest: 'tests/setup.js' },
       { src: 'tests/unit/**', dest: 'tests/unit' }
