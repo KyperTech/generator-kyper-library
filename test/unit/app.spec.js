@@ -19,8 +19,7 @@ const testFiles = [
 ]
 
 describe.skip('generator-react-firebase:app', () => {
-  before(() =>
-    helpers.run(path.join(__dirname, '../../generators/app'))
+  before(() => helpers.run(path.join(__dirname, '../../generators/app'))
       .withPrompts({includeTravis: true, githubUser: 'someuser', codeClimate: true})
       .toPromise()
   )
